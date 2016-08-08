@@ -1,24 +1,24 @@
 Pod::Spec.new do |s|
-  s.name            = "OpenSSL"
-  s.version         = "1.0.205"
+  s.name            = "openssl-ios-bitcode"
+  s.version         = "1.0.208"
   s.summary         = "OpenSSL is an SSL/TLS and Crypto toolkit. Deprecated in Mac OS and gone in iOS, this spec gives your project non-deprecated OpenSSL support."
   s.author          = "OpenSSL Project <openssl-dev@openssl.org>"
 
-  s.homepage        = "https://github.com/FredericJacobs/OpenSSL-Pod"
+  s.homepage        = "https://github.com/stayHF/OpenSSL-Pod.git"
   s.license         = 'BSD-style Open Source'
-  s.source          = { :http => "https://openssl.org/source/openssl-1.0.2e.tar.gz", :sha1 => "2c5691496761cb18f98476eefa4d35c835448fb6"}
+  s.source          = { :http => "https://www.openssl.org/source/openssl-1.0.2h.tar.gz", :sha1 => "577585f5f5d299c44dd3c993d3c0ac7a219e4949"}
   s.source_files    = "opensslIncludes/openssl/*.h"
   s.header_dir      = "openssl"
   s.license	        = { :type => 'OpenSSL (OpenSSL/SSLeay)', :file => 'LICENSE' }
 
   s.prepare_command = <<-CMD
-    VERSION="1.0.2e"
+    VERSION="1.0.2h"
     SDKVERSION=`xcrun --sdk iphoneos --show-sdk-version 2> /dev/null`
-    MIN_SDK_VERSION_FLAG="-miphoneos-version-min=7.0"
+    MIN_SDKVERSION="7.0"
 
     BASEPATH="${PWD}"
-    CURRENTPATH="/tmp/openssl"
-    ARCHS="i386 x86_64 armv7 armv7s arm64"
+    CURRENTPATH="${TMPDIR}/openssl"
+    ARCHS="i386 x86_64 armv7 arm64"
     DEVELOPER=`xcode-select -print-path`
 
     mkdir -p "${CURRENTPATH}"
@@ -51,7 +51,7 @@ Pod::Spec.new do |s|
       echo "Building openssl-${VERSION} for ${PLATFORM} ${SDKVERSION} ${ARCH}"
       echo "Please stand by..."
 
-      export CC="${DEVELOPER}/usr/bin/gcc -arch ${ARCH} ${MIN_SDK_VERSION_FLAG}"
+      export CC="${DEVELOPER}/usr/bin/gcc -arch ${ARCH} -miphoneos-version-min=${MIN_SDKVERSION} -fembed-bitcode"
       mkdir -p "${CURRENTPATH}/bin/${PLATFORM}${SDKVERSION}-${ARCH}.sdk"
       LOG="${CURRENTPATH}/bin/${PLATFORM}${SDKVERSION}-${ARCH}.sdk/build-openssl-${VERSION}.log"
 
