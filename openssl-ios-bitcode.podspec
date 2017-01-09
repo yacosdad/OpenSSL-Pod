@@ -1,18 +1,18 @@
 Pod::Spec.new do |s|
   s.name            = "openssl-ios-bitcode"
-  s.version         = "1.0.208"
+  s.version         = "1.0.210"
   s.summary         = "OpenSSL is an SSL/TLS and Crypto toolkit. Deprecated in Mac OS and gone in iOS, this spec gives your project non-deprecated OpenSSL support."
   s.author          = "OpenSSL Project <openssl-dev@openssl.org>"
 
   s.homepage        = "https://github.com/stayHF/OpenSSL-Pod.git"
   s.license         = 'BSD-style Open Source'
-  s.source          = { :http => "https://www.openssl.org/source/openssl-1.0.2h.tar.gz", :sha1 => "577585f5f5d299c44dd3c993d3c0ac7a219e4949"}
+  s.source          = { :http => "https://openssl.org/source/openssl-1.0.2j.tar.gz", :sha1 => "bdfbdb416942f666865fa48fe13c2d0e588df54f"}
   s.source_files    = "opensslIncludes/openssl/*.h"
   s.header_dir      = "openssl"
   s.license	        = { :type => 'OpenSSL (OpenSSL/SSLeay)', :file => 'LICENSE' }
 
   s.prepare_command = <<-CMD
-    VERSION="1.0.2h"
+    VERSION="1.0.2j"
     SDKVERSION=`xcrun --sdk iphoneos --show-sdk-version 2> /dev/null`
     MIN_SDKVERSION="7.0"
 
