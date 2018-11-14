@@ -1,18 +1,18 @@
 Pod::Spec.new do |s|
   s.name            = "openssl-ios-bitcode"
-  s.version         = "1.0.212"
+  s.version         = "1.0.216"
   s.summary         = "OpenSSL is an SSL/TLS and Crypto toolkit. Deprecated in Mac OS and gone in iOS, this spec gives your project non-deprecated OpenSSL support."
   s.author          = "OpenSSL Project <openssl-dev@openssl.org>"
 
   s.homepage        = "https://github.com/stayHF/OpenSSL-Pod.git"
   s.license         = 'BSD-style Open Source'
-  s.source          = { :http => "https://www.openssl.org/source/openssl-1.0.2l.tar.gz", :sha1 => "b58d5d0e9cea20e571d903aafa853e2ccd914138"}
+  s.source          = { :http => "https://www.openssl.org/source/openssl-1.0.2p.tar.gz", :sha1 => "f34b5322e92415755c7d58bf5d0d5cf37666382c"}
   s.source_files    = "opensslIncludes/openssl/*.h"
   s.header_dir      = "openssl"
   s.license	        = { :type => 'OpenSSL (OpenSSL/SSLeay)', :file => 'LICENSE' }
 
   s.prepare_command = <<-CMD
-    VERSION="1.0.2l"
+    VERSION="1.0.2p"
     SDKVERSION=`xcrun --sdk iphoneos --show-sdk-version 2> /dev/null`
     MIN_SDKVERSION="7.0"
 
@@ -23,11 +23,6 @@ Pod::Spec.new do |s|
 
     mkdir -p "${CURRENTPATH}"
     mkdir -p "${CURRENTPATH}/bin"
-
-    cp "file.tgz" "${CURRENTPATH}/file.tgz"
-    cd "${CURRENTPATH}"
-    tar -xzf file.tgz
-    cd "openssl-${VERSION}"
 
     for ARCH in ${ARCHS}
     do
@@ -76,7 +71,7 @@ Pod::Spec.new do |s|
     echo "Copying headers..."
     rm -rf "${BASEPATH}/opensslIncludes/"
     mkdir -p "${BASEPATH}/opensslIncludes/"
-    cp -RL "${CURRENTPATH}/openssl-${VERSION}/include/openssl" "${BASEPATH}/opensslIncludes/"
+    cp -RL "${CURRENTPATH}/bin/${PLATFORM}${SDKVERSION}-armv7.sdk/include/openssl" "${BASEPATH}/opensslIncludes/"
 
     cd "${BASEPATH}"
     echo "Building done."
